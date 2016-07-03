@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>Trabalho Final com integração à rede social Twitter</title>
+    <meta charset="utf-8" />
+    <link href="libs/bootstrap.css" rel="stylesheet" />
+    <link href="app.css" rel="stylesheet" />
+</head>
+<body>
+    <div ng-controller="computadorCtrl as ctrl" class="container-fluid">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-repeat="item in ctrl.columns">{{item}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="row">
+                <tr ng-repeat="item in ctrl.computadores">
+                    <td class="table-divider">
+                        <span>{{item.Id}}</span>
+                    </td>
+                    <td class="table-divider">
+                        <span ng-if="!ctrl.toggleEdit">{{item.Marca}}</span>
+                        <span ng-if="ctrl.toggleEdit"><input type="text" ng-model="item.Marca" /></span>
+                    </td>
+                    <td class="table-divider">
+                        <span ng-if="!ctrl.toggleEdit">{{item.Modelo}}</span>
+                        <span ng-if="ctrl.toggleEdit"><input type="text" ng-model="item.Modelo" /></span>
+                    </td>
+                    <td class="table-divider">
+                        <span ng-if="!ctrl.toggleEdit">{{item.Preco}}</span>
+                        <span ng-if="ctrl.toggleEdit"><input type="text" ng-model="item.Preco" /></span>
+                    </td>
+                    <td class="table-divider">
+                        <span ng-if="!ctrl.toggleEdit">{{item.Polegadas}}</span>
+                        <span ng-if="ctrl.toggleEdit"><input type="text" ng-model="item.Polegadas" /></span>
+                    </td>
+                    <td class="table-divider">
+                        <span ng-if="!ctrl.toggleEdit">{{item.Peso | number:2}}</span>
+                        <span ng-if="ctrl.toggleEdit"><input type="text" ng-model="item.Peso" /></span>
+                    </td>
+                    <td ng-if="ctrl.toggleEdit" class="">
+                        <button type="button" class="btn btn-success pull-right" ng-click="ctrl.edit(item); ctrl.toggleEdit = !ctrl.toggleEdit">Salvar</button>
+                        <button type="button" class="btn btn-danger pull-right" ng-click="ctrl.cancel($index); ctrl.toggleEdit = !ctrl.toggleEdit">Cancelar</button>
+                    </td>
+                    <td ng-if="!ctrl.toggleEdit" class="">
+                        <button type="button" class="btn btn-success pull-right" ng-click="ctrl.cloneItem(item); ctrl.toggleEdit = !ctrl.toggleEdit">Editar</button>
+                        <button type="button" class="btn btn-danger pull-right" ng-click="ctrl.delete(item)">Excluir</button>
+                    </td>
+                </tr>
+                <tr ng-if="ctrl.toggleAdd">
+                    <td></td>
+                    <td>
+                        <input type="text" ng-model="ctrl.newItem.Marca" />
+                    </td>
+                    <td>
+                        <input type="text" ng-model="ctrl.newItem.Modelo" />
+                    </td>
+                    <td>
+                        <input type="text" ng-model="ctrl.newItem.Preco" />
+                    </td>
+                    <td>
+                        <input type="text" ng-model="ctrl.newItem.Polegadas" />
+                    </td>
+                    <td>
+                        <input type="text" ng-model="ctrl.newItem.Peso" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success  pull-right" ng-click="ctrl.add(ctrl.newItem); ctrl.toggleAdd = !ctrl.toggleAdd">Salvar</button>
+                        <button type="button" class="btn btn-danger pull-right" ng-click="ctrl.toggleAdd = !ctrl.toggleAdd">Cancelar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-add" ng-click="ctrl.toggleAdd = !ctrl.toggleAdd">Adicionar</button>
+    </div>
+    <script src="libs/jquery-3.0.0.js"></script>
+    <script src="libs/angular.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
